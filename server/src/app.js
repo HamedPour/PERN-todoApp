@@ -4,7 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
 
-//  my imports
+//  my config imports
 const config = require("./config/config");
 
 app.use(morgan("dev"));

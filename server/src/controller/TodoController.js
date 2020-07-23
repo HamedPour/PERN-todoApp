@@ -31,10 +31,10 @@ module.exports = {
       const { description } = req.body;
 
       const updatedTodo = await pool.query(
-        "UPDATE todo SET desciption = $1 WHERE todo_id = $2 RETURNING *;",
+        "UPDATE todo SET description = $1 WHERE todo_id = $2 RETURNING *;",
         [description, id]
       );
-      res.send(updatedTodo.rows[0]);
+      res.json(updatedTodo.rows[0]);
     } catch (err) {
       console.error(err.message);
     }
@@ -49,7 +49,7 @@ module.exports = {
         "DELETE from todo WHERE todo_id = $1 RETURNING *;",
         [id]
       );
-      res.send(deletedTodo.rows[0]);
+      res.json(deletedTodo.rows[0]);
     } catch (err) {
       console.error(err.message);
     }
@@ -61,7 +61,7 @@ module.exports = {
       const { description } = req.body;
 
       const newTodo = await pool.query(
-        "INSERT INTO todo (desciption) VALUES ($1) RETURNING *;",
+        "INSERT INTO todo (description) VALUES ($1) RETURNING *;",
         [description]
       );
 
