@@ -57,9 +57,7 @@ module.exports = {
 
   async createToDo(req, res) {
     try {
-      // const customer = await Customer.create(req.body);
       const { description } = req.body;
-
       const newTodo = await pool.query(
         "INSERT INTO todo (description) VALUES ($1) RETURNING *;",
         [description]

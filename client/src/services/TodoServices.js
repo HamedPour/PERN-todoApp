@@ -7,7 +7,10 @@ export default {
   deleteTodoItem(id) {
     return Api().delete(`todo/${id}`);
   },
-  addTodoItem(data) {
+  addTodoItem(aDescription) {
+    const data = {
+      description: aDescription,
+    };
     return Api().post("create-todo", data);
   },
 };

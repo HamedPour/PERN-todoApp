@@ -14,6 +14,7 @@ import TodoServices from "../../services/TodoServices";
 function HomePage() {
   const [todoList, setTodoList] = useState([]);
 
+  // GET ALL TODOs
   async function getAllTodos() {
     try {
       const res = await TodoServices.getAllTodos();
@@ -23,6 +24,7 @@ function HomePage() {
     }
   }
 
+  // DELETE TODO ITEM
   async function handleDelete(anID) {
     try {
       await TodoServices.deleteTodoItem(anID);
@@ -35,8 +37,14 @@ function HomePage() {
     }
   }
 
-  function handleInput(data) {
-    console.log(data);
+  // CREATE NEW TODO ITEM
+  async function handleInput(data) {
+    try {
+      const res = await TodoServices.addTodoItem(data);
+      setTodoList([...todoList, res.data]);
+    } catch (err) {
+      console.log(err.message);
+    }
   }
 
   useEffect(() => {

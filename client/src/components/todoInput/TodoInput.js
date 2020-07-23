@@ -10,6 +10,7 @@ function TodoInput({ inputHandler }) {
   function handleSubmit(e) {
     e.preventDefault();
     inputHandler(value);
+    e.target.reset();
   }
 
   function handleChange(e) {
