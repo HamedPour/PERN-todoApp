@@ -4,9 +4,13 @@ import React from "react";
 import TodoItemContainer from "./styledComponent/TodoItemContainer";
 import Button from "./styledComponent/Button";
 
-function TodoItem({ number, id, description, deleteHandler }) {
+function TodoItem({ number, id, description, deleteHandler, changeHandler }) {
   function deleteItem(anID) {
     deleteHandler(anID);
+  }
+
+  function changeItem(anID) {
+    changeHandler(anID);
   }
 
   return (
@@ -14,7 +18,9 @@ function TodoItem({ number, id, description, deleteHandler }) {
       <p>
         {number}. {description}
       </p>
-      <Button colour="green">Update</Button>
+      <Button colour="green" onClick={() => changeItem(id)}>
+        Update
+      </Button>
       <Button colour="red" onClick={() => deleteItem(id)}>
         Delete
       </Button>

@@ -13,4 +13,11 @@ export default {
     };
     return Api().post("create-todo", data);
   },
+  updateTodoItem(id, newData) {
+    const data = {
+      todo_id: id,
+      description: newData,
+    };
+    return Api().put(`todo/${id}`, data);
+  },
 };

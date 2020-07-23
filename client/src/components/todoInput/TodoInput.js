@@ -22,7 +22,7 @@ function TodoInput({ inputHandler }) {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="what needs doing?"
+          placeholder="What needs doing?"
           onChange={handleChange}
         ></input>
         <Button type="submit" colour="#6495ED">

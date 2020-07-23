@@ -7,12 +7,16 @@ import TodoListContainer from "./styledComponents/TodoListContainer";
 // components
 import TodoItem from "../../components/todoItem/TodoItem";
 import TodoInput from "../../components/todoInput/TodoInput";
+import Modal from "../../components/modal/Model";
 
 // api services
 import TodoServices from "../../services/TodoServices";
 
 function HomePage() {
+  // STATES
   const [todoList, setTodoList] = useState([]);
+  const [showModal, setShowModel] = useState(false);
+  const [targetID, setTargetID] = useState(0);
 
   // GET ALL TODOs
   async function getAllTodos() {
@@ -20,7 +24,7 @@ function HomePage() {
       const res = await TodoServices.getAllTodos();
       setTodoList(res.data);
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
     }
   }
 
@@ -33,7 +37,7 @@ function HomePage() {
       });
       setTodoList(newList);
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
     }
   }
 
@@ -43,7 +47,30 @@ function HomePage() {
       const res = await TodoServices.addTodoItem(data);
       setTodoList([...todoList, res.data]);
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
+    }
+  }
+
+  function handleChange(anID) {
+    setShowModel(true);
+    setTargetID(anID);
+  }
+
+  function handleHideModal() {
+    setShowModel(false);
+  }
+
+  // CHANGE TODO ITEM OF TARGETID
+  async function handleChangeSubmit(targetID, newData) {
+    try {
+      const changedItem = await TodoServices.updateTodoItem(targetID, newData);
+      // filter through todoList and find the changed item, update it
+      let list = todoList.filter((items) => {
+        return items.todo_id !== changedItem.data.todo_id;
+      });
+      setTodoList([...list, changedItem.data]);
+    } catch (err) {
+      console.error(err.message);
     }
   }
 
@@ -54,6 +81,14 @@ function HomePage() {
   return (
     <Container>
       <h1>PERN todo App</h1>
+      {showModal ? (
+        <Modal
+          targetID={targetID}
+          todoList={todoList}
+          hideModalHandler={handleHideModal}
+          submitHandler={handleChangeSubmit}
+        />
+      ) : null}
       <TodoInput inputHandler={handleInput} />
       <TodoListContainer>
         {todoList.map((item, index) => {
@@ -64,6 +99,7 @@ function HomePage() {
               id={item.todo_id}
               description={item.description}
               deleteHandler={handleDelete}
+              changeHandler={handleChange}
             />
           );
         })}
