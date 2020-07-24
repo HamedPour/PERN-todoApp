@@ -5,10 +5,11 @@
 const TodoController = require("./controller/TodoController");
 
 module.exports = (app) => {
+  app.get("/", TodoController.getTodos);
   app.get("/todos", TodoController.getTodos);
   app.get("/todo/:id", TodoController.getTodo);
   app.put("/todo/:id", TodoController.updateTodo);
   app.post("/create-todo", TodoController.createToDo);
   app.delete("/todo/:id", TodoController.deleteTodo);
-  app.get("*", TodoController.catchAll);
+  // app.get("*", TodoController.catchAll);
 };

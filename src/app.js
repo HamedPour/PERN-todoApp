@@ -14,6 +14,7 @@ app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
   // serve static content
+  console.log("PRODUCTION HERE ... ");
   app.use(express.static(path.join(__dirname, "client/build")));
 }
 
@@ -22,5 +23,6 @@ require("./routes")(app);
 
 app.listen(config.port, () => {
   console.log("=======================================================");
+  console.log(process.env.NODE_ENV);
   console.log("Sever started at port " + config.port);
 });
