@@ -1,4 +1,5 @@
 // packages
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -10,6 +11,11 @@ const config = require("./config/config");
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors());
+
+if (process.env.NODE_ENV === "production") {
+  // serve static content
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 
 // routes import
 require("./routes")(app);
