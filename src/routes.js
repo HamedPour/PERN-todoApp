@@ -10,4 +10,5 @@ module.exports = (app) => {
   app.put("/todo/:id", TodoController.updateTodo);
   app.post("/create-todo", TodoController.createToDo);
   app.delete("/todo/:id", TodoController.deleteTodo);
+  app.get("*", TodoController.catchAll);
 };

@@ -1,3 +1,4 @@
+const path = require("path");
 const pool = require("../models/db");
 
 module.exports = {
@@ -69,5 +70,9 @@ module.exports = {
         error: err.message,
       });
     }
+  },
+
+  catchAll(req, res) {
+    res.sendFile(path.join(__dirname, "client/build/index.html"));
   },
 };
